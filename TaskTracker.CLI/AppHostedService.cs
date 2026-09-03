@@ -78,7 +78,7 @@ public sealed class AppHostedService : BackgroundService
                         break;
 
                     default:
-                        Console.WriteLine("Invalid list argument. Use 'done', 'todo', or 'in-progress'.");
+                        Console.WriteLine("Invalid list argument. Use 'done', 'todo', or 'in-progress' with 'list'.");
                         break;
                 }
 
@@ -91,6 +91,10 @@ public sealed class AppHostedService : BackgroundService
                 foreach (var task in tasks)
                     Console.WriteLine($"ID: {task.Id} - Created At: {task.CreatedAt} - Description: {task.Description} - Status: {task.Status}");
 
+                break;
+
+            default:
+                Console.WriteLine("Invalid command. Use 'add', 'update', 'mark-in-progress', 'mark-done', 'delete', or 'list'.");
                 break;
         }
     }

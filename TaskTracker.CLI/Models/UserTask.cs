@@ -36,8 +36,8 @@ public sealed class UserTask
 
     public void ChangeStatus(UserTaskStatus status)
     {
-        // Cannot change status from Done to Todo or InProgress.
-        if (Status == UserTaskStatus.Done && (status == UserTaskStatus.Todo || status == UserTaskStatus.InProgress))
+        // Cannot change status from Done to To-do or InProgress.
+        if (Status == UserTaskStatus.Done)
             throw new TaskAlreadyDoneException();
 
         Status = status;
