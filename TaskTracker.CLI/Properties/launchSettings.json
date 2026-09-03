@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "TaskTracker.CLI": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+﻿global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Logging;
+global using System.Linq.Expressions;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using TaskTracker.CLI;
+global using TaskTracker.CLI.Exceptions;
+global using TaskTracker.CLI.Interfaces;
+global using TaskTracker.CLI.Models;
+global using TaskTracker.CLI.Repositories;
+global using TaskTracker.CLI.Services;
