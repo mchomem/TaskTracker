@@ -1,37 +1,22 @@
 ﻿namespace TaskTracker.CLI;
 
-public sealed class AppHostedService : BackgroundService
+public sealed class CommandProcessor
 {
     private readonly IUserTaskService _userTaskService;
-    private readonly IHostApplicationLifetime _hostApplicationLifetime;
-    private readonly string[] _args;
 
-    public AppHostedService(IUserTaskService userTaskService,
-        IHostApplicationLifetime hostApplicationLifetime,
-        AppArguments appArguments)
+    public CommandProcessor(IUserTaskService userTaskService)
     {
         _userTaskService = userTaskService;
-        _hostApplicationLifetime = hostApplicationLifetime;
-        _args = appArguments.Args;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    public async Task ProcessCommandAsync(string[] args)
     {
-        await ProcessCommandAsync();
-        Exit();
-    }
-
-    private async Task ProcessCommandAsync()
-    {
-        if (_args.Length == 0)
-        {
-            Exit();
+        if (args.Length == 0)
             return;
-        }
 
-        var command = _args[0].ToLower();
-        var value1 = _args.Length > 1 ? _args[1] : string.Empty;
-        var value2 = _args.Length > 2 ? _args[2] : string.Empty;
+        var command = args[0].ToLower();
+        var value1 = args.Length > 1 ? args[1] : string.Empty;
+        var value2 = args.Length > 2 ? args[2] : string.Empty;
 
         switch (command)
         {
@@ -97,10 +82,5 @@ public sealed class AppHostedService : BackgroundService
                 Console.WriteLine("Invalid command. Use 'add', 'update', 'mark-in-progress', 'mark-done', 'delete', or 'list'.");
                 break;
         }
-    }
-
-    private void Exit()
-    {
-        _hostApplicationLifetime.StopApplication();
     }
 }

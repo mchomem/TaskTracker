@@ -1,11 +1,17 @@
-﻿// Specification to implement this app: https://roadmap.sh/projects/task-tracker
+﻿var services = new ServiceCollection();
+services.AddScoped<IUserTaskService, UserTaskService>();
+services.AddScoped<IUserTaskRepository, UserTaskRepository>();
+services.AddScoped<CommandProcessor>();
 
-var builder = Host.CreateApplicationBuilder();
-builder.Logging.ClearProviders();
-builder.Services.AddSingleton(new AppArguments() { Args = args });
-builder.Services.AddScoped<IUserTaskService, UserTaskService>();
-builder.Services.AddScoped<IUserTaskRepository, UserTaskRepository>();
-builder.Services.AddHostedService<AppHostedService>();
+var provider = services.BuildServiceProvider();
 
-var host = builder.Build();
-await host.RunAsync();
+try
+{
+    var commandProcessor = provider.GetRequiredService<CommandProcessor>();
+    await commandProcessor.ProcessCommandAsync(args);
+}
+catch (Exception ex)
+{
+    await Console.Error.WriteLineAsync($"Error: {ex.Message}");
+    Environment.Exit(1);
+}

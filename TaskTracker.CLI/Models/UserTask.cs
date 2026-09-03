@@ -14,12 +14,12 @@ public sealed class UserTask
 
     public UserTask(long id, string description)
     {
+        CheckInputs(description);
+
         Id = id;
-        Description = description;
+        Description = description.Trim();
         Status = UserTaskStatus.Todo;
         CreatedAt = DateTime.Now;
-
-        CheckInputs();
     }
 
     public long Id { get; private set; }
@@ -29,8 +29,10 @@ public sealed class UserTask
     public DateTime? UpdateAt { get; private set; }
 
     public void Update(string description)
-    {
-        Description = description;
+    {        
+        CheckInputs(description);
+
+        Description = description.Trim();
         UpdateAt = DateTime.Now;
     }
 
@@ -44,9 +46,9 @@ public sealed class UserTask
         UpdateAt = DateTime.Now;
     }
 
-    private void CheckInputs()
+    private void CheckInputs(string description)
     {
-        if(string.IsNullOrEmpty(Description))
+        if(string.IsNullOrEmpty(description))
             throw new EmptyTaskDescriptionException();
     }
 }
