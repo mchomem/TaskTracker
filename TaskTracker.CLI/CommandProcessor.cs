@@ -78,6 +78,17 @@ public sealed class CommandProcessor
 
                 break;
 
+            case "help":
+                Console.WriteLine("Available commands:");
+                Console.WriteLine("  add <description> - Add a new task");
+                Console.WriteLine("  update <id> <description> - Update an existing task");
+                Console.WriteLine("  mark-in-progress <id> - Mark a task as in progress");
+                Console.WriteLine("  mark-done <id> - Mark a task as done");
+                Console.WriteLine("  delete <id> - Delete a task");
+                Console.WriteLine("  list [done|todo|in-progress] - List tasks");
+                Console.WriteLine("  help - Show this help message");
+                break;
+
             default:
                 Console.WriteLine("Invalid command. Use 'add', 'update', 'mark-in-progress', 'mark-done', 'delete', or 'list'.");
                 break;
